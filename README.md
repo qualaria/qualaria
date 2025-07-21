@@ -10,9 +10,9 @@
 
 ## Mentors
 
-- [Atadana Sogodam](https://github.com/el-dAna)
-- [Chantelle Amoako-Atta](https://github.com/ChantelleAA)
 - [Eunice Gandote](https://www.linkedin.com/in/eunice-gandote-459082108/)
+- [Chantelle Amoako-Atta](https://github.com/ChantelleAA)
+- [Atadana Sogodam](https://github.com/el-dAna)
 
 ## Project Overview
 
