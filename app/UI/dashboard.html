@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualaria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Fixed Header -->
+        <header class="fixed-header">
+            <a class="dashboard-logo-link" href="index.html">
+                <img src="Qualaria_Icon.png" alt="Qualaria" class="qualaria-logo">
+                <span class="dashboard-title">Qualaria</span>
+            </a>
+            <div class="header-right">
+                <button class="filter-btn"><i class="fa-solid fa-filter"></i> Filter <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search Molecule">
+                </div>
+                <button class="download-btn"><i class="fa-solid fa-download"></i></button>
+            </div>
+        </header>
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="sidebar-tab active" data-tab="dashboard"><a href="#"><i class="fa-solid fa-house"></i> Molecule Ranking</a></li>
+                    <li class="sidebar-tab" data-tab="uploads"><a href="#"><i class="fa-solid fa-cloud-upload-alt"></i> Uploads</a></li>
+                    <li class="sidebar-tab" data-tab="process"><a href="#"><i class="fa-solid fa-chart-pie"></i> Process</a></li>
+                    <li class="sidebar-tab" data-tab="export"><a href="#"><i class="fa-solid fa-share-square"></i> Export/Share</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <!-- Dashboard Grid (Molecule Ranking) -->
+            <section class="dashboard-grid" data-tab-content="dashboard">
+                <!-- Top Row -->
+                <div class="card molecule-rankings card-span-3">
+                    <h2>Molecule Rankings</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Molecules</th>
+                                <th>Target Protein</th>
+                                <th>Binding Energy</th>
+                                <th>Stability</th>
+                            </tr>
+                        </thead>
+                        <tbody id="molecule-table-body">
+                            <!-- Dummy data will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card binding-energy-dist card-span-2">
+                    <h2>Binding Energy Distribution</h2>
+                    <canvas id="bindingEnergyChart"></canvas>
+                </div>
+                <!-- Bottom Row -->
+                <div class="card molecule-visual">
+                    <div class="molecule-img">
+                        <i class="fa-solid fa-atom fa-4x"></i>
+                    </div>
+                    <div class="molecule-label">Molecule 101</div>
+                </div>
+                <div class="card molecule-details">
+                    <h3>Molecule Details</h3>
+                    <ul>
+                        <li><span>Algorithm</span> <b>VQE</b></li>
+                        <li><span>Optimizer</span> <b>COBYLA</b></li>
+                        <li><span>Computation</span> <b>Quantum</b></li>
+                        <li><span>Qubits</span> <b>6</b></li>
+                    </ul>
+                    <button class="details-btn"><i class="fa-solid fa-file-alt"></i> Details</button>
+                </div>
+                <div class="card energy-decomposition">
+                    <h3>Energy Decomposition</h3>
+                    <canvas id="energyDecompositionChart"></canvas>
+                </div>
+                <div class="card about-simulation">
+                    <h3>About the Simulation</h3>
+                    <p>Quantum Computing using advanced algorithms like VQE to enhance malaria ligand finding by precisely predicting binding energies of ligands to proteins.</p>
+                </div>
+                <div class="card more-info">
+                    <h3>More Info</h3>
+                    <div class="info-legend">
+                        <div><i class="fa-solid fa-a"></i> Algorithm</div>
+                        <div><i class="fa-solid fa-dna"></i> Ligand</div>
+                        <div><i class="fa-solid fa-disease"></i> Protein</div>
+                        <div><i class="fa-solid fa-bolt"></i> Binding Energy</div>
+                    </div>
+                </div>
+            </section>
+            <!-- Uploads Tab Content -->
+            <section class="uploads-content" data-tab-content="uploads" style="display:none;">
+                <div class="uploads-banner">
+                    <div class="uploads-banner-overlay"></div>
+                    <div class="uploads-banner-content">
+                        <div class="uploads-logo-nav">
+                            <div class="uploads-logo">
+                                <img src="Qualaria_Icon.png" alt="Qualaria" class="qualaria-logo">
+                                <span class="qualaria-text">QUALARIA</span>
+                            </div>
+                            <nav class="uploads-nav">
+                                <a href="#">About</a>
+                                <a href="#">Docs</a>
+                                <a href="#">Submit</a>
+                                <a href="#">Contact</a>
+                            </nav>
+                        </div>
+                        <div class="uploads-search-section">
+                            <div class="uploads-search-title">SEARCH FOR</div>
+                            <form id="dashboard-upload-form" enctype="multipart/form-data" method="POST" action="/api/upload">
+                                <div class="uploads-search-box-row">
+                                    <input class="uploads-search-box" type="file" name="pdbfile" accept=".pdb" required>
+                                    <button class="uploads-search-btn" type="submit"><i class="fa-solid fa-upload"></i> Upload</button>
+                                </div>
+                            </form>
+                            <a class="uploads-search-help" href="#">See Search Help <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="uploads-best-match-section">
+                    <div class="uploads-best-match-title">BEST MATCH</div>
+                    <div class="uploads-molecule-carousel">
+                        <!-- Molecule cards will be injected here by JS -->
+                    </div>
+                </div>
+            </section>
+            <!-- Process Tab Content -->
+            <section class="process-content" data-tab-content="process" style="display:none;">
+                <div class="process-dashboard">
+                    <div class="process-col process-rankings">
+                        <div class="process-card process-rankings-card">
+                            <div class="process-card-title">Rankings – Most Stable</div>
+                            <ol class="process-rankings-list">
+                                <li>H2 <span class="process-rank-bar"></span></li>
+                                <li>O2 <span class="process-rank-bar"></span></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="process-col process-input">
+                        <div class="process-card process-input-card">
+                            <div class="process-card-title">Input</div>
+                            <div class="process-molecule-list">
+                                <div class="process-molecule">
+                                    <div class="process-molecule-icon"><i class="fa-solid fa-atom"></i></div>
+                                    <div class="process-molecule-label">H2</div>
+                                </div>
+                                <div class="process-molecule">
+                                    <div class="process-molecule-icon"><i class="fa-solid fa-atom"></i></div>
+                                    <div class="process-molecule-label">O2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-col process-vqe">
+                        <div class="process-card process-vqe-card">
+                            <div class="process-card-title">Variational Quantum<br>Eigensolver</div>
+                            <div class="process-vqe-icon"><i class="fa-solid fa-circle-notch fa-spin fa-4x"></i></div>
+                        </div>
+                    </div>
+                    <div class="process-col process-results">
+                        <div class="process-card process-results-card">
+                            <div class="process-card-title">Results</div>
+                            <div class="process-results-molecule">
+                                <i class="fa-solid fa-atom fa-2x"></i>
+                            </div>
+                            <div class="process-results-label">Most Stable</div>
+                            <div class="process-results-energy-label">Ground State Energy</div>
+                            <div class="process-results-energy">-1,989 eV</div>
+                            <button class="process-calc-btn">Calculate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-footer">Quantum = Enhanced Ligand Finding</div>
+            </section>
+            <!-- Export/Share Tab Content -->
+            <section class="export-content" data-tab-content="export" style="display:none;">
+                <div class="export-card">
+                    <div class="export-title">Export/Share</div>
+                    <div class="export-row">
+                        <label class="export-label">Share Link</label>
+                        <input class="export-input" type="text" readonly value="https://qworld.app/share/12345">
+                        <button class="export-btn">Copy link</button>
+                    </div>
+                    <div class="export-row">
+                        <label class="export-label">Publish To Web</label>
+                        <span class="export-desc">Publish the dashboard so anyone with the link can view it</span>
+                        <button class="export-btn">Publish</button>
+                    </div>
+                    <div class="export-row">
+                        <label class="export-label">Download File</label>
+                        <div class="export-radio-group">
+                            <label><input type="radio" name="export-file" checked> PDF Format</label>
+                            <label><input type="radio" name="export-file"> Word Document</label>
+                            <label><input type="radio" name="export-file"> PowerPoint</label>
+                        </div>
+                        <button class="export-btn">Download</button>
+                    </div>
+                    <div class="export-row">
+                        <label class="export-label">Download As Image</label>
+                        <div class="export-radio-group">
+                            <label><input type="radio" name="export-img" checked> JPEG</label>
+                            <label><input type="radio" name="export-img"> PNG</label>
+                            <label><input type="radio" name="export-img"> SVG</label>
+                        </div>
+                        <button class="export-btn">Download</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

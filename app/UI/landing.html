@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualaria - Landing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body.landing {
+            background: linear-gradient(135deg, #101c36 60%, #38bdf8 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .landing-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+        }
+        .landing-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+        }
+        .landing-logo i {
+            font-size: 2.2rem;
+            color: #38bdf8;
+        }
+        .landing-logo span {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.01em;
+        }
+        .landing-hero {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        .landing-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+        .landing-hero p {
+            font-size: 1.25rem;
+            color: #b3c7e6;
+            margin-bottom: 2.5rem;
+        }
+        .landing-upload-section {
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            border-radius: 2rem;
+            box-shadow: 0 4px 24px rgba(16,28,54,0.18);
+            padding: 2.5rem 2rem 2.5rem 2rem;
+            max-width: 480px;
+            margin: 2.5rem auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .landing-upload-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.7rem;
+        }
+        .landing-upload-box {
+            background: #fff;
+            border: 2.5px dashed #2563eb;
+            border-radius: 1.2rem;
+            padding: 2.2rem 1.5rem;
+            color: #2563eb;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: border 0.2s, background 0.2s;
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .landing-upload-box:hover {
+            border-color: #38bdf8;
+            background: #f0faff;
+        }
+        .landing-upload-box input[type="file"] {
+            display: none;
+        }
+        .landing-upload-icon {
+            font-size: 2.5rem;
+            color: #38bdf8;
+        }
+        .landing-upload-filename {
+            color: #2563eb;
+            font-size: 1.05rem;
+            margin-top: 0.5rem;
+        }
+        .landing-get-started-btn {
+            background: #fff;
+            color: #2563eb;
+            border: none;
+            border-radius: 2rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-top: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(16,28,54,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        .landing-get-started-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        @media (max-width: 700px) {
+            .landing-header {
+                padding: 1.2rem 0.7rem 1rem 0.7rem;
+            }
+            .landing-hero {
+                margin-top: 1.2rem;
+                padding: 0 0.5rem;
+            }
+            .landing-hero h1 {
+                font-size: 1.5rem;
+            }
+            .landing-upload-section {
+                padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body class="landing">
+    <header class="landing-header">
+        <a class="landing-logo" href="index.html">
+            <i class="fa-solid fa-hexagon"></i>
+                            <span>Qualaria</span>
+        </a>
+    </header>
+    <main>
+        <section class="landing-hero">
+            <h1>Reducing deaths by accelerating the identification of potential ligands for the dominant strain of malaria.</h1>
+            <p>Upload your target protein structure and get started with quantum-powered ligand finding in seconds.</p>
+        </section>
+        <section class="landing-upload-section">
+            <div class="landing-upload-title">Upload your target protein (PDB file) to get started</div>
+            <label class="landing-upload-box" id="landing-upload-label">
+                <span class="landing-upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                <span id="landing-upload-text">Drag & drop or click to select a .pdb file</span>
+                <input type="file" id="landing-upload-input" accept=".pdb">
+            </label>
+            <button class="landing-get-started-btn" id="landing-get-started-btn" disabled>Get Started</button>
+        </section>
+    </main>
+    <script>
+        // Upload logic
+        const uploadInput = document.getElementById('landing-upload-input');
+        const uploadLabel = document.getElementById('landing-upload-label');
+        const uploadText = document.getElementById('landing-upload-text');
+        const getStartedBtn = document.getElementById('landing-get-started-btn');
+        let uploadedFile = null;
+
+        uploadInput.addEventListener('change', function(e) {
+            if (uploadInput.files && uploadInput.files[0]) {
+                uploadedFile = uploadInput.files[0];
+                uploadText.textContent = uploadedFile.name;
+                getStartedBtn.disabled = false;
+            }
+        });
+        uploadLabel.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadLabel.style.borderColor = '#38bdf8';
+            uploadLabel.style.background = '#f0faff';
+        });
+        uploadLabel.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadLabel.style.borderColor = '#2563eb';
+            uploadLabel.style.background = '#fff';
+        });
+        uploadLabel.addEventListener('drop', function(e) {
+            e.preventDefault();
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                uploadedFile = e.dataTransfer.files[0];
+                uploadInput.files = e.dataTransfer;
+                uploadText.textContent = uploadedFile.name;
+                getStartedBtn.disabled = false;
+            }
+            uploadLabel.style.borderColor = '#2563eb';
+            uploadLabel.style.background = '#fff';
+        });
+        getStartedBtn.addEventListener('click', function() {
+            // In a real app, upload the file and then redirect
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html> 
