@@ -55,7 +55,7 @@ Then, we calculated the binding stability of the ligands to the pockets to selec
 
 Our mentors:
 
-- [Eunice Gandote](https://github.com/eunicegit)
+- [Eunice Gandote](https://github.com/Eunicegit503)
 - [Chantelle Amoako-Atta](https://github.com/ChantelleAA)
 - [Atadana Sogodam](https://github.com/el-dAna)
 
