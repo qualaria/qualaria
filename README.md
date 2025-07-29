@@ -46,7 +46,7 @@ Then, we calculated the binding stability of the ligands to the pockets to selec
 ## Team Members
 
 - [Astride Melvin Fokam Ninyim](https://github.com/MELAI-1)
-- [Augustina Agyeman](https://github.com/Inna-pixel)
+- [Augustina Agyeman](https://github.com/Agyeman-Tee)
 - [Dorcas Seshie](https://github.com/Lil-Seshie)
 - [Ndam Abibou](https://github.com/abib-prime)
 - [Prince Dorcis](https://github.com/prinx)
